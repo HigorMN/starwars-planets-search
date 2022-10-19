@@ -4,14 +4,17 @@ import ContextStarwars from './ContextStarwars';
 
 function ProviderStarWars({ children }) {
   const [dataApiPlanets, setdataApiPlanets] = useState([]);
+
   useEffect(() => {
     const fetchApiPlanets = async () => {
       const endpoint = 'https://swapi.dev/api/planets';
       const { results } = await (await fetch(endpoint)).json();
-      setdataApiPlanets(results);
+      const removeResidents = results.filter((e) => delete e.residents);
+      setdataApiPlanets(removeResidents);
     };
     fetchApiPlanets();
   }, []);
+
   return (
     <ContextStarwars.Provider value={ dataApiPlanets }>
       {children}
