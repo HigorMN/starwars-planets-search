@@ -3,7 +3,6 @@ import ContextStarwars from '../context/ContextStarwars';
 
 export default function Table() {
   const { dataApiPlanets, nameFilter } = useContext(ContextStarwars);
-
   const handleFilters = (array) => {
     const filterName = array
       .filter((e) => e.name.toLowerCase().includes(nameFilter));
