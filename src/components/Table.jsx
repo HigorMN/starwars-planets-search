@@ -2,8 +2,14 @@ import React, { useContext } from 'react';
 import ContextStarwars from '../context/ContextStarwars';
 
 export default function Table() {
-  const dataApiPlanets = useContext(ContextStarwars);
-  console.log(dataApiPlanets);
+  const { dataApiPlanets, nameFilter } = useContext(ContextStarwars);
+
+  const handleFilters = (array) => {
+    const filterName = array
+      .filter((e) => e.name.toLowerCase().includes(nameFilter));
+    return filterName;
+  };
+
   return (
     <table>
       <thead>
@@ -24,7 +30,7 @@ export default function Table() {
         </tr>
       </thead>
       <tbody>
-        { dataApiPlanets.map((e, index) => (
+        { handleFilters(dataApiPlanets).map((e, index) => (
           <tr key={ index }>
             <td>{e.name}</td>
             <td>{e.rotation_period}</td>
