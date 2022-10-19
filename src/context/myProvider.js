@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './myContext';
 
-const INITIAL_STATE = { };
-
 function Provider({ children }) {
-  const [state, setState] = useState(INITIAL_STATE);
-
+  const [dataAPIplanets, setdataAPIplanets] = useState([]);
+  useEffect(() => {
+    const fetchAPIplanets = async () => {
+      const endpoint = 'https://swapi.dev/api/planets';
+      const { results } = await (await fetch(endpoint)).json();
+      setdataAPIplanets(results);
+    };
+    fetchAPIplanets();
+  }, []);
   return (
-    <MyContext.Provider value={ state }>
+    <MyContext.Provider value={ dataAPIplanets }>
       {children}
     </MyContext.Provider>
   );
