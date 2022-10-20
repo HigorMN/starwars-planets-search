@@ -37,19 +37,17 @@ function ProviderStarWars({ children }) {
   }, []);
 
   const clickBtnFilter = useCallback(() => {
-    if (columnFilter === objColumn[columnFilter]) {
-      const newColumn = column.filter((e) => e !== objColumn[columnFilter]);
-      setColumnFilter(newColumn[0]);
-      setColumn(newColumn);
-      if (comparisonFilter === 'menor que') {
-        setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] < +valueFilter));
-      }
-      if (comparisonFilter === 'igual a') {
-        setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] === valueFilter));
-      }
-      if (comparisonFilter === 'maior que') {
-        setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] > +valueFilter));
-      }
+    const newColumn = column.filter((e) => e !== objColumn[columnFilter]);
+    setColumnFilter(newColumn[0]);
+    setColumn(newColumn);
+    if (comparisonFilter === 'menor que') {
+      setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] < +valueFilter));
+    }
+    if (comparisonFilter === 'igual a') {
+      setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] === valueFilter));
+    }
+    if (comparisonFilter === 'maior que') {
+      setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] > +valueFilter));
     }
   }, [column, columnFilter, comparisonFilter, dataApiPlanets, valueFilter]);
 
