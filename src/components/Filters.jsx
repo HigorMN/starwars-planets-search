@@ -3,10 +3,10 @@ import ContextStarwars from '../context/ContextStarwars';
 
 export default function Filters() {
   const {
-    nameFilter, handleNameFilter,
-    columnFilter, handleColumnFilter,
-    comparisonFilter, handleComparisonFilter,
-    valueFilter, handleValueFilter,
+    nameFilter, setNameFilter,
+    columnFilter, setColumnFilter,
+    comparisonFilter, setComparisonFilter,
+    valueFilter, setValueFilter,
     clickBtnFilter,
   } = useContext(ContextStarwars);
   return (
@@ -15,7 +15,7 @@ export default function Filters() {
         type="text"
         data-testid="name-filter"
         value={ nameFilter.name }
-        onChange={ ({ target: { value } }) => handleNameFilter(value.toLowerCase()) }
+        onChange={ ({ target: { value } }) => setNameFilter(value.toLowerCase()) }
       />
       <div>
         <label htmlFor="coluna">
@@ -24,7 +24,7 @@ export default function Filters() {
             id="coluna"
             value={ columnFilter }
             data-testid="column-filter"
-            onChange={ ({ target: { value } }) => handleColumnFilter(value) }
+            onChange={ ({ target: { value } }) => setColumnFilter(value) }
           >
             <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
@@ -39,7 +39,7 @@ export default function Filters() {
             id="operador"
             value={ comparisonFilter }
             data-testid="comparison-filter"
-            onChange={ ({ target: { value } }) => handleComparisonFilter(value) }
+            onChange={ ({ target: { value } }) => setComparisonFilter(value) }
           >
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
@@ -50,7 +50,7 @@ export default function Filters() {
           type="number"
           data-testid="value-filter"
           value={ valueFilter }
-          onChange={ ({ target: { value } }) => handleValueFilter(value) }
+          onChange={ ({ target: { value } }) => setValueFilter(value) }
         />
       </div>
       <button

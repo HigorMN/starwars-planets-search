@@ -19,22 +19,6 @@ function ProviderStarWars({ children }) {
     fetchApiPlanets();
   }, []);
 
-  const handleNameFilter = (name) => {
-    setNameFilter(name);
-  };
-
-  const handleColumnFilter = (coluna) => {
-    setColumnFilter(coluna);
-  };
-
-  const handleComparisonFilter = (operador) => {
-    setComparisonFilter(operador);
-  };
-
-  const handleValueFilter = (value) => {
-    setValueFilter(value);
-  };
-
   const clickBtnFilter = () => {
     if (comparisonFilter === 'menor que') {
       setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] < +valueFilter));
@@ -53,13 +37,12 @@ function ProviderStarWars({ children }) {
     columnFilter,
     comparisonFilter,
     valueFilter,
-    handleNameFilter,
-    handleColumnFilter,
-    handleComparisonFilter,
-    handleValueFilter,
+    setNameFilter,
+    setColumnFilter,
+    setComparisonFilter,
+    setValueFilter,
     clickBtnFilter,
-  }), [
-    dataApiPlanets, nameFilter, columnFilter, comparisonFilter, valueFilter]);
+  }), [dataApiPlanets, nameFilter, columnFilter, comparisonFilter, valueFilter]);
 
   return (
     <ContextStarwars.Provider value={ value }>
