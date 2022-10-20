@@ -7,7 +7,8 @@ export default function Filters() {
     columnFilter, setColumnFilter,
     comparisonFilter, setComparisonFilter,
     valueFilter, setValueFilter,
-    clickBtnFilter, column,
+    clickBtnFilter, column, filter,
+    clickBtnRemoveFiltrs, clickBtnRemoveFilter,
   } = useContext(ContextStarwars);
   return (
     <form>
@@ -58,6 +59,26 @@ export default function Filters() {
       >
         filtrar
       </button>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ clickBtnRemoveFiltrs }
+      >
+        Remover todas filtragens
+      </button>
+
+      {filter.map((e, index) => (
+        <div data-testid="filter" key={ index }>
+          <span>{`${e.columnFilter} ${e.comparisonFilter} ${e.valueFilter}`}</span>
+          <button
+            type="button"
+            onClick={ () => clickBtnRemoveFilter(e.columnFilter) }
+          >
+            x
+          </button>
+        </div>
+      ))}
+
     </form>
   );
 }

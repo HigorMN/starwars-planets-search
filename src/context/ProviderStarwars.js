@@ -2,14 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import ContextStarwars from './ContextStarwars';
 
-const objColumn = {
-  population: 'population',
-  orbital_period: 'orbital_period',
-  diameter: 'diameter',
-  rotation_period: 'rotation_period',
-  surface_water: 'surface_water',
-};
-
 const arryColumn = [
   'population',
   'orbital_period',
@@ -20,11 +12,13 @@ const arryColumn = [
 
 function ProviderStarWars({ children }) {
   const [dataApiPlanets, setdataApiPlanets] = useState([]);
+  const [copyData, setCopyData] = useState([]);
   const [nameFilter, setNameFilter] = useState('');
   const [columnFilter, setColumnFilter] = useState('population');
   const [column, setColumn] = useState(arryColumn);
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
+  const [filter, setFilter] = useState([]);
 
   useEffect(() => {
     const fetchApiPlanets = async () => {
@@ -32,14 +26,16 @@ function ProviderStarWars({ children }) {
       const { results } = await (await fetch(endpoint)).json();
       const removeResidents = results.filter((e) => delete e.residents);
       setdataApiPlanets(removeResidents);
+      setCopyData(removeResidents);
     };
     fetchApiPlanets();
   }, []);
 
   const clickBtnFilter = useCallback(() => {
-    const newColumn = column.filter((e) => e !== objColumn[columnFilter]);
+    const newColumn = [...column].filter((e) => e !== columnFilter);
     setColumnFilter(newColumn[0]);
     setColumn(newColumn);
+    setFilter([...filter, { columnFilter, comparisonFilter, valueFilter }]);
     if (comparisonFilter === 'menor que') {
       setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] < +valueFilter));
     }
@@ -49,7 +45,58 @@ function ProviderStarWars({ children }) {
     if (comparisonFilter === 'maior que') {
       setdataApiPlanets(dataApiPlanets.filter((e) => e[columnFilter] > +valueFilter));
     }
-  }, [column, columnFilter, comparisonFilter, dataApiPlanets, valueFilter]);
+  }, [column, columnFilter, comparisonFilter, dataApiPlanets, valueFilter, filter]);
+
+  const clickBtnRemoveFiltrs = useCallback(() => {
+    setdataApiPlanets(copyData);
+    setColumn(arryColumn);
+    setFilter([]);
+    setColumnFilter('population');
+  }, [copyData]);
+
+  console.log(dataApiPlanets);
+
+  const clickBtnRemoveFilter = useCallback((elemnetColumn) => {
+    const index = arryColumn.indexOf(elemnetColumn);
+    column.splice(index, 0, elemnetColumn);
+
+    setFilter(filter.filter((e) => e.columnFilter !== elemnetColumn));
+    setdataApiPlanets(copyData);
+    setColumn(column);
+    setColumnFilter(column[0]);
+
+    filter.filter((e) => e.columnFilter !== elemnetColumn).forEach((element) => {
+      if (element.comparisonFilter === 'maior que') {
+        const newData = copyData.filter(
+          (e) => +e[element.columnFilter] > +element.valueFilter,
+        );
+        console.log(dataApiPlanets);
+        setColumn(column.filter((e) => e !== element.columnFilter));
+        setColumnFilter(column[0]);
+        setdataApiPlanets(newData);
+      }
+
+      if (element.comparisonFilter === 'menor que') {
+        const newData = copyData.filter(
+          (e) => +e[element.columnFilter] < +element.valueFilter,
+        );
+
+        setColumn(column.filter((e) => e !== element.columnFilter));
+        setColumnFilter(column[0]);
+        setdataApiPlanets(newData);
+      }
+
+      if (element.comparisonFilter === 'igual a') {
+        const newData = copyData.filter(
+          (e) => +e[element.columnFilter] === +element.valueFilter,
+        );
+
+        setColumn(column.filter((e) => e !== element.columnFilter));
+        setColumnFilter(column[0]);
+        setdataApiPlanets(newData);
+      }
+    });
+  }, [filter, column, copyData, dataApiPlanets]);
 
   const value = useMemo(
     () => ({
@@ -59,11 +106,14 @@ function ProviderStarWars({ children }) {
       comparisonFilter,
       valueFilter,
       column,
+      filter,
       setNameFilter,
       setColumnFilter,
       setComparisonFilter,
       setValueFilter,
       clickBtnFilter,
+      clickBtnRemoveFiltrs,
+      clickBtnRemoveFilter,
     }),
     [
       dataApiPlanets,
@@ -72,7 +122,10 @@ function ProviderStarWars({ children }) {
       comparisonFilter,
       valueFilter,
       clickBtnFilter,
+      clickBtnRemoveFiltrs,
+      clickBtnRemoveFilter,
       column,
+      filter,
     ],
   );
 
