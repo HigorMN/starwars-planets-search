@@ -54,8 +54,6 @@ function ProviderStarWars({ children }) {
     setColumnFilter('population');
   }, [copyData]);
 
-  console.log(dataApiPlanets);
-
   const clickBtnRemoveFilter = useCallback((elemnetColumn) => {
     const index = arryColumn.indexOf(elemnetColumn);
     column.splice(index, 0, elemnetColumn);
@@ -70,7 +68,6 @@ function ProviderStarWars({ children }) {
         const newData = copyData.filter(
           (e) => +e[element.columnFilter] > +element.valueFilter,
         );
-        console.log(dataApiPlanets);
         setColumn(column.filter((e) => e !== element.columnFilter));
         setColumnFilter(column[0]);
         setdataApiPlanets(newData);
@@ -96,7 +93,7 @@ function ProviderStarWars({ children }) {
         setdataApiPlanets(newData);
       }
     });
-  }, [filter, column, copyData, dataApiPlanets]);
+  }, [filter, column, copyData]);
 
   const value = useMemo(
     () => ({

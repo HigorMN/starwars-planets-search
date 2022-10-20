@@ -74,7 +74,7 @@ export default function Filters() {
             type="button"
             onClick={ () => clickBtnRemoveFilter(e.columnFilter) }
           >
-            x
+            excluir
           </button>
         </div>
       ))}
