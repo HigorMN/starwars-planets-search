@@ -7,14 +7,14 @@ export default function Filters() {
     columnFilter, setColumnFilter,
     comparisonFilter, setComparisonFilter,
     valueFilter, setValueFilter,
-    clickBtnFilter,
+    clickBtnFilter, column,
   } = useContext(ContextStarwars);
   return (
     <form>
       <input
         type="text"
         data-testid="name-filter"
-        value={ nameFilter.name }
+        value={ nameFilter }
         onChange={ ({ target: { value } }) => setNameFilter(value.toLowerCase()) }
       />
       <div>
@@ -26,11 +26,9 @@ export default function Filters() {
             data-testid="column-filter"
             onChange={ ({ target: { value } }) => setColumnFilter(value) }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            {column.map((e, index) => (
+              <option key={ index } value={ e }>{e}</option>
+            ))}
           </select>
         </label>
         <label htmlFor="operador">
