@@ -19,6 +19,9 @@ function ProviderStarWars({ children }) {
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
   const [filter, setFilter] = useState([]);
+  const [columnSort, setColumnSort] = useState('population');
+  const [sortRadio, setSortRadio] = useState('');
+  const [order, setOrder] = useState({ order: { column: '', sort: '' } });
 
   useEffect(() => {
     const fetchApiPlanets = async () => {
@@ -95,6 +98,25 @@ function ProviderStarWars({ children }) {
     });
   }, [filter, column, copyData]);
 
+  const handleBtnSort = useCallback((objeto) => {
+    setOrder(objeto);
+    if (objeto.order.sort === 'DESC') {
+      const dataSort = dataApiPlanets.sort(
+        (a, b) => b[objeto.order.column] - a[objeto.order.column],
+      );
+      setdataApiPlanets(dataSort);
+    }
+
+    if (objeto.order.sort === 'ASC') {
+      const dataSort = dataApiPlanets.sort(
+        (a, b) => b[objeto.order.column] - a[objeto.order.column],
+      );
+      setdataApiPlanets(dataSort.sort(
+        (a, b) => a[objeto.order.column] - b[objeto.order.column],
+      ));
+    }
+  }, [dataApiPlanets]);
+
   const value = useMemo(
     () => ({
       dataApiPlanets,
@@ -104,6 +126,9 @@ function ProviderStarWars({ children }) {
       valueFilter,
       column,
       filter,
+      columnSort,
+      sortRadio,
+      order,
       setNameFilter,
       setColumnFilter,
       setComparisonFilter,
@@ -111,6 +136,9 @@ function ProviderStarWars({ children }) {
       clickBtnFilter,
       clickBtnRemoveFiltrs,
       clickBtnRemoveFilter,
+      setColumnSort,
+      setSortRadio,
+      handleBtnSort,
     }),
     [
       dataApiPlanets,
@@ -118,11 +146,15 @@ function ProviderStarWars({ children }) {
       columnFilter,
       comparisonFilter,
       valueFilter,
+      column,
+      filter,
+      columnSort,
+      sortRadio,
+      order,
       clickBtnFilter,
       clickBtnRemoveFiltrs,
       clickBtnRemoveFilter,
-      column,
-      filter,
+      handleBtnSort,
     ],
   );
 
