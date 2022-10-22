@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import ContextStarwars from '../context/ContextStarwars';
 import './Filters.css';
 import SortToColumns from './SortToColumns';
+import vectorSearch from '../images/vector-search.png';
 
 export default function Filters() {
   const {
@@ -14,19 +15,23 @@ export default function Filters() {
   } = useContext(ContextStarwars);
   return (
     <form className="Filters-container">
-      <input
-        type="text"
-        data-testid="name-filter"
-        value={ nameFilter }
-        onChange={ ({ target: { value } }) => setNameFilter(value.toLowerCase()) }
-      />
-      <div>
-        <label htmlFor="coluna">
+      <div className="center input-name-filter">
+        <input
+          type="text"
+          data-testid="name-filter"
+          value={ nameFilter }
+          onChange={ ({ target: { value } }) => setNameFilter(value.toLowerCase()) }
+        />
+        <img src={ vectorSearch } alt="pesquisar pelo nome" className="vectorSearch" />
+      </div>
+      <div className="center filters-container">
+        <label htmlFor="coluna" className="label">
           Coluna
           <select
             id="coluna"
             value={ columnFilter }
             data-testid="column-filter"
+            className="input-select"
             onChange={ ({ target: { value } }) => setColumnFilter(value) }
           >
             {column.map((e, index) => (
@@ -34,12 +39,13 @@ export default function Filters() {
             ))}
           </select>
         </label>
-        <label htmlFor="operador">
+        <label htmlFor="operador" className="label">
           Operador
           <select
             id="operador"
             value={ comparisonFilter }
             data-testid="comparison-filter"
+            className="input-select"
             onChange={ ({ target: { value } }) => setComparisonFilter(value) }
           >
             <option value="maior que">maior que</option>
@@ -51,36 +57,39 @@ export default function Filters() {
           type="number"
           data-testid="value-filter"
           value={ valueFilter }
+          className="input-number"
           onChange={ ({ target: { value } }) => setValueFilter(value) }
         />
-      </div>
-      <button
-        type="button"
-        data-testid="button-filter"
-        onClick={ clickBtnFilter }
-      >
-        filtrar
-      </button>
-      <button
-        type="button"
-        data-testid="button-remove-filters"
-        onClick={ clickBtnRemoveFiltrs }
-      >
-        Remover todas filtragens
-      </button>
+        <button
+          type="button"
+          data-testid="button-filter"
+          className="btn-filter"
+          onClick={ clickBtnFilter }
+        >
+          filtrar
+        </button>
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ clickBtnRemoveFiltrs }
+          className="btn-filter"
+        >
+          Remover todas filtragens
+        </button>
 
-      {filter.map((e, index) => (
-        <div data-testid="filter" key={ index }>
-          <span>{`${e.columnFilter} ${e.comparisonFilter} ${e.valueFilter}`}</span>
-          <button
-            type="button"
-            onClick={ () => clickBtnRemoveFilter(e.columnFilter) }
-          >
-            excluir
-          </button>
-        </div>
-      ))}
-      <SortToColumns />
+        {filter.map((e, index) => (
+          <div data-testid="filter" key={ index }>
+            <span>{`${e.columnFilter} ${e.comparisonFilter} ${e.valueFilter}`}</span>
+            <button
+              type="button"
+              onClick={ () => clickBtnRemoveFilter(e.columnFilter) }
+            >
+              excluir
+            </button>
+          </div>
+        ))}
+        <SortToColumns />
+      </div>
     </form>
   );
 }

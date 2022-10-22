@@ -1,5 +1,7 @@
 body {
   background: url('./images/fundo-star-wars.png') no-repeat;
+  background-blend-mode: multiply;
+  background-color: rgba(47, 193, 140, 0.35);
   background-size: cover;
   color: white;
 }
