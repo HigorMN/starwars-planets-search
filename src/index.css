@@ -6,11 +6,13 @@
 
 :root {
   --yellow: #FAE60A;
+  --yellow-RGBA: rgba(250, 230, 10, 0.3);
+  --white-RGBA: rgba(255, 255, 255, 0.5);
   --gray-dark: #2E3035;
   --gray-dark2: #444955;
   --gray: #7E7E7E;
   --border-rasius1: 0.25rem;
-  --border-rasius2: 2rem;
+  --border-rasius2: 1.5rem;
 }
 
 ::selection {
@@ -41,3 +43,16 @@ body::-webkit-scrollbar-thumb {
   background-color: var(--gray);
   border-radius: var(--border-rasius2);
 }
+
+img {
+  animation: go-back 2s;
+}
+
+@keyframes go-back {
+  from {
+    transform: scale(0)
+  }
+  to {
+    transform: scale(-10px)
+  }
+} 

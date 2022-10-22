@@ -3,3 +3,11 @@ body {
   background-size: cover;
   color: white;
 }
+
+.traco {
+  background: white;
+  height: 180px;
+  margin: auto;
+  margin-top: -103px;
+  width: 1px;
+}

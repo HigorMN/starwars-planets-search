@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import ContextStarwars from '../context/ContextStarwars';
+import './Filters.css';
+import SortToColumns from './SortToColumns';
 
 export default function Filters() {
   const {
@@ -11,7 +13,7 @@ export default function Filters() {
     clickBtnRemoveFiltrs, clickBtnRemoveFilter,
   } = useContext(ContextStarwars);
   return (
-    <form>
+    <form className="Filters-container">
       <input
         type="text"
         data-testid="name-filter"
@@ -78,7 +80,7 @@ export default function Filters() {
           </button>
         </div>
       ))}
-
+      <SortToColumns />
     </form>
   );
 }

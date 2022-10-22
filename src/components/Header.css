@@ -1,0 +1,16 @@
+/* stylelint-disable linebreaks */
+.header {
+  border: 1px solid var(--yellow-RGBA);
+  border-radius: 50%;
+  height: 695px;
+  margin: auto;
+  margin-top: -90px;
+  width: 695px;
+}
+
+.header div {
+  border: 1px solid white;
+  border-radius: 50%;
+  height: 488px;
+  width: 488px;
+}
