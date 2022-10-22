@@ -1,0 +1,5 @@
+body {
+  background: url('./images/fundo-star-wars.png') no-repeat;
+  background-size: cover;
+  color: white;
+}
