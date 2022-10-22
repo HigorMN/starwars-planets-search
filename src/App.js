@@ -8,9 +8,11 @@ import ProviderStarWars from './context/ProviderStarwars';
 function App() {
   return (
     <ProviderStarWars>
-      <Filters />
-      <SortToColumns />
-      <Table />
+      <main className="container">
+        <Filters />
+        <SortToColumns />
+        <Table />
+      </main>
     </ProviderStarWars>
   );
 }
