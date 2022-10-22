@@ -13,3 +13,9 @@ body {
   margin-top: -103px;
   width: 1px;
 }
+
+.main {
+  border: 1px solid white;
+  border-radius: var(--border-rasius2);
+  padding: 20px;
+}

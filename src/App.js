@@ -10,7 +10,7 @@ function App() {
     <ProviderStarWars>
       <Header />
       <div className="traco" />
-      <main className="container">
+      <main className="container main">
         <Filters />
         <Table />
       </main>

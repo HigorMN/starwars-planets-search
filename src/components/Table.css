@@ -1,0 +1,22 @@
+/* stylelint-disable linebreaks */
+.thead tr th {
+  background: var(--gray-dark);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+.container-table {
+  overflow: scroll;
+}
+
+.tbody tr td {
+  border-bottom: 1px solid var(--white-RGBA);
+  color: var(--white-RGBA);
+}
+
+.tbody {
+  height: 700px;
+}

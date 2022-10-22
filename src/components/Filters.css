@@ -1,7 +1,6 @@
 /* stylelint-disable linebreaks */
 .Filters-container {
-  border: 1px solid white;
-  border-radius: var(--border-rasius2);
+  border-bottom: none;
 }
 
 .input-name-filter {
